@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lana Rose H — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF; --bg-alt:#F4F8FC; --navy:#0A2540; --blue:#1668E3;
+    --blue-soft:#5B9BF5; --slate:#5B7083; --line:#DCE6F0;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0A1420; --bg-alt:#0F1E30; --navy:#EAF2FB; --blue:#5B9BF5;
+      --blue-soft:#8FBBFA; --slate:#9CB3C9; --line:#203040;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0A1420; --bg-alt:#0F1E30; --navy:#EAF2FB; --blue:#5B9BF5;
+    --blue-soft:#8FBBFA; --slate:#9CB3C9; --line:#203040;
+  }
+  html{height:100%;}
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--navy); height:100%;
+    font-family:'Inter',system-ui,-apple-system,Segoe UI,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:'Space Grotesk',system-ui,-apple-system,Segoe UI,Arial,sans-serif; margin:0; color:var(--navy);}
+  a{color:var(--blue); text-decoration:none;}
+  .wrap{max-width:900px; margin:0 auto; padding:0 28px;}
+
+  /* NAV */
+  nav{
+    position:fixed; top:0; left:0; right:0;
+    padding-top:env(safe-area-inset-top,0px);
+    background:rgba(255,255,255,.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    z-index:50;
+  }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) nav{ background:rgba(10,20,32,.85);} }
+  :root[data-theme="dark"] nav{ background:rgba(10,20,32,.85);}
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; padding:14px 28px; gap:12px; flex-wrap:wrap;}
+  .brand{font-family:'Space Grotesk'; font-weight:600; font-size:17px; letter-spacing:.2px; cursor:pointer;}
+  .brand span{color:var(--blue);}
+  .navlinks{display:flex; gap:20px; flex-wrap:wrap;}
+  .navlinks a{font-size:13.5px; color:var(--slate); font-weight:500; position:relative; padding:4px 0; cursor:pointer;}
+  .navlinks a::after{content:""; position:absolute; left:0; right:0; bottom:-2px; height:2px; background:var(--blue); transform:scaleX(0); transform-origin:left; transition:transform .25s ease;}
+  .navlinks a:hover{color:var(--blue);}
+  .navlinks a.active{color:var(--blue);}
+  .navlinks a.active::after{transform:scaleX(1);}
+
+  /* PAGES */
+  .page{
+    display:none;
+    min-height:100dvh;
+    padding:calc(env(safe-area-inset-top,0px) + 100px) 0 90px;
+  }
+  .page.is-active{display:block; animation:pageIn .55s cubic-bezier(.22,.61,.36,1) both;}
+  @keyframes pageIn{from{opacity:0; transform:translateY(22px);} to{opacity:1; transform:translateY(0);}}
+  @media (prefers-reduced-motion:reduce){ .page.is-active{animation:none;} }
+
+  .section-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:30px; gap:16px;}
+  .section-head h2{font-size:24px; font-weight:600;}
+  .section-head .idx{color:var(--slate); font-size:13px; font-family:'Space Grotesk';}
+
+  /* HERO */
+  .hero-grid{display:flex; flex-direction:column; align-items:flex-start; min-height:calc(100dvh - 190px); justify-content:center; gap:28px;}
+  .hero-body{max-width:640px;}
+  .eyebrow{color:var(--blue); font-size:14px; font-weight:600; margin-bottom:14px;}
+  .hero h1{font-size:clamp(34px,6vw,54px); line-height:1.08; font-weight:700;}
+  .hero h1 em{font-style:normal; color:var(--blue);}
+  .hero p.lede{color:var(--slate); font-size:17px; line-height:1.6; max-width:46ch; margin-top:18px;}
+  .hero-actions{margin-top:26px; display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{padding:12px 22px; border-radius:6px; font-weight:600; font-size:14px; border:1px solid var(--blue); cursor:pointer; background:none; font-family:inherit;}
+  .btn.solid{background:var(--blue); color:#fff;}
+  .btn.solid:hover{background:var(--navy); border-color:var(--navy);}
+  .btn.ghost{color:var(--blue);}
+  .btn.ghost:hover{background:var(--bg-alt);}
+
+  .node-art{width:100%; max-width:520px;}
+  .node-art svg{width:100%; height:auto;}
+  .node-art circle{fill:var(--blue);}
+  .node-art circle.dim{fill:var(--blue-soft);}
+  .node-art line{stroke:var(--line); stroke-width:1.4;}
+  .node-art .pulse{animation:pulse 2.6s ease-in-out infinite;}
+  .node-art .drift{animation:drift 7s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:.3;}}
+  @keyframes drift{0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);}}
+  @media (prefers-reduced-motion:reduce){ .node-art .pulse,.node-art .drift{animation:none;} }
+
+  /* ABOUT */
+  .about-text{color:var(--slate); font-size:16.5px; line-height:1.8; max-width:66ch;}
+  .about-text strong{color:var(--navy);}
+
+  /* SKILLS */
+  .skill-groups{display:grid; grid-template-columns:1fr 1fr; gap:22px 40px;}
+  @media (max-width:600px){ .skill-groups{grid-template-columns:1fr;} }
+  .skill-group{border-left:2px solid var(--line); padding-left:16px; opacity:0; transform:translateX(-8px); animation:slideIn .5s ease forwards;}
+  .skill-group h3{font-size:13px; color:var(--blue); font-weight:600; margin-bottom:8px; font-family:'Inter';}
+  .skill-group p{margin:0; color:var(--navy); font-size:14.5px; line-height:1.7;}
+  @keyframes slideIn{to{opacity:1; transform:translateX(0);}}
+  @media (prefers-reduced-motion:reduce){ .skill-group{animation:none; opacity:1; transform:none;} }
+
+  /* TIMELINE */
+  .timeline{position:relative; padding-left:26px;}
+  .timeline::before{content:""; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--line);}
+  .tl-item{position:relative; padding-bottom:34px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{content:""; position:absolute; left:-26px; top:5px; width:9px; height:9px; border-radius:50%; background:var(--blue); border:3px solid var(--bg);}
+  .tl-top{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:baseline;}
+  .tl-top h3{font-size:16.5px; font-weight:600;}
+  .tl-top time{font-size:13px; color:var(--slate); font-family:'Space Grotesk';}
+  .tl-org{color:var(--blue); font-size:14px; margin-top:2px; font-weight:500;}
+  .tl-item ul{margin:10px 0 0; padding-left:18px; color:var(--slate); font-size:14.5px; line-height:1.7;}
+  .tl-item li{margin-bottom:4px;}
+
+  /* PROJECTS */
+  .project-row{padding:22px 0; border-top:1px solid var(--line); display:grid; grid-template-columns:1fr 2fr; gap:20px;}
+  .project-row:first-child{border-top:none;}
+  @media (max-width:640px){ .project-row{grid-template-columns:1fr;} }
+  .project-row h3{font-size:16.5px; font-weight:600;}
+  .project-stack{margin-top:8px; color:var(--blue); font-size:12.5px; font-family:'Space Grotesk'; letter-spacing:.2px;}
+  .project-row p{margin:0; color:var(--slate); font-size:14.5px; line-height:1.7;}
+
+  /* EDU / CERTS */
+  .split{display:grid; grid-template-columns:1.1fr 1fr; gap:40px;}
+  @media (max-width:700px){ .split{grid-template-columns:1fr;} }
+  .edu h3{font-size:16.5px; font-weight:600;}
+  .edu .tl-org{margin-top:4px;}
+  .edu .meta{color:var(--slate); font-size:14px; margin-top:6px;}
+  .cert-list{list-style:none; margin:0; padding:0;}
+  .cert-list li{padding:9px 0; border-bottom:1px solid var(--line); font-size:14.5px; color:var(--navy);}
+  .cert-list li:last-child{border-bottom:none;}
+  .pub{margin-top:26px; padding-top:26px; border-top:1px solid var(--line); color:var(--slate); font-size:14.5px; font-style:italic;}
+
+  /* CONTACT */
+  .contact-links{margin-top:26px; display:flex; flex-wrap:wrap; gap:14px 30px;}
+  .contact-links a{font-size:14.5px; font-weight:500; color:var(--navy); display:flex; align-items:center; gap:8px;}
+  .contact-links a:hover{color:var(--blue);}
+  .dot{width:6px; height:6px; border-radius:50%; background:var(--blue); display:inline-block;}
+  .fine{margin-top:40px; color:var(--slate); font-size:12.5px;}
+
+  /* PAGE NAV ARROWS */
+  .page-nav{max-width:900px; margin:50px auto 0; padding:22px 28px 0; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; gap:16px;}
+  .page-nav button{background:none; border:none; cursor:pointer; font-family:'Inter'; color:var(--slate); font-size:14px; font-weight:500; display:flex; align-items:center; gap:8px; padding:6px 0;}
+  .page-nav button:hover{color:var(--blue);}
+  .page-nav button:disabled{visibility:hidden;}
+  .page-nav .arrow{font-family:'Space Grotesk'; font-size:16px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand" onclick="go('home')">Lana Rose <span>H</span></div>
+    <div class="navlinks">
+      <a data-page="home" onclick="go('home')">Home</a>
+      <a data-page="about" onclick="go('about')">About</a>
+      <a data-page="skills" onclick="go('skills')">Skills</a>
+      <a data-page="experience" onclick="go('experience')">Experience</a>
+      <a data-page="projects" onclick="go('projects')">Projects</a>
+      <a data-page="education" onclick="go('education')">Education</a>
+      <a data-page="contact" onclick="go('contact')">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page" id="page-home">
+  <div class="wrap hero-grid">
+    <div class="node-art" aria-hidden="true">
+      <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+        <line x1="60" y1="40" x2="160" y2="25"/>
+        <line x1="160" y1="25" x2="255" y2="55"/>
+        <line x1="60" y1="40" x2="85" y2="115"/>
+        <line x1="160" y1="25" x2="150" y2="115"/>
+        <line x1="255" y1="55" x2="235" y2="125"/>
+        <line x1="85" y1="115" x2="150" y2="115"/>
+        <line x1="150" y1="115" x2="235" y2="125"/>
+        <line x1="85" y1="115" x2="65" y2="190"/>
+        <line x1="150" y1="115" x2="160" y2="195"/>
+        <line x1="235" y1="125" x2="245" y2="190"/>
+        <line x1="65" y1="190" x2="160" y2="195"/>
+        <line x1="160" y1="195" x2="245" y2="190"/>
+        <circle class="pulse drift" cx="60" cy="40" r="5"/>
+        <circle class="dim" cx="160" cy="25" r="4"/>
+        <circle class="pulse" cx="255" cy="55" r="5"/>
+        <circle class="dim drift" cx="85" cy="115" r="4"/>
+        <circle cx="150" cy="115" r="6"/>
+        <circle class="dim" cx="235" cy="125" r="4"/>
+        <circle class="pulse" cx="65" cy="190" r="5"/>
+        <circle class="dim drift" cx="160" cy="195" r="4"/>
+        <circle class="pulse" cx="245" cy="190" r="5"/>
+      </svg>
+    </div>
+    <div class="hero-body">
+      <div class="eyebrow">Computer Science &amp; Engineering Graduate</div>
+      <h1>Building at the edge of <em>cloud</em> &amp; <em>AI</em>.</h1>
+      <p class="lede">Hi, I'm Lana — a Computer Science graduate who loves building with code, exploring cloud tools, and working on AI projects. Based in Chennai, Tamil Nadu.</p>
+      <div class="hero-actions">
+        <button class="btn solid" onclick="go('projects')">View Projects</button>
+        <button class="btn ghost" onclick="go('contact')">Get in Touch</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-about">
+  <div class="wrap">
+    <div class="section-head"><h2>About</h2><span class="idx">01</span></div>
+    <p class="about-text">I'm a Computer Science and Engineering graduate who enjoys building things with code. I've learned <strong>programming, databases, web development, cloud computing, and DevOps</strong> during my degree, and got hands-on experience with <strong>AWS (EC2, S3, IAM)</strong> through a DevOps internship. I also like working on <strong>AI and computer vision projects</strong> using tools like OpenCV and YOLO, and exploring data with <strong>SQL, Excel, and Power BI</strong>. I'm a quick learner, enjoy solving problems, and work well with both technical and non-technical people.</p>
+  </div>
+</div>
+
+<div class="page" id="page-skills">
+  <div class="wrap">
+    <div class="section-head"><h2>Skills</h2><span class="idx">02</span></div>
+    <div class="skill-groups">
+      <div class="skill-group" style="animation-delay:.02s"><h3>Programming &amp; Database</h3><p>Python, Java, SQL</p></div>
+      <div class="skill-group" style="animation-delay:.08s"><h3>Web Technologies</h3><p>HTML5, CSS3, JavaScript</p></div>
+      <div class="skill-group" style="animation-delay:.14s"><h3>Cloud</h3><p>AWS — EC2, S3, IAM</p></div>
+      <div class="skill-group" style="animation-delay:.2s"><h3>DevOps &amp; Version Control</h3><p>Git, GitHub</p></div>
+      <div class="skill-group" style="animation-delay:.26s"><h3>AI &amp; Computer Vision</h3><p>OpenCV, YOLO, DeepSORT</p></div>
+      <div class="skill-group" style="animation-delay:.32s"><h3>Data &amp; Visualization</h3><p>Power BI, Excel</p></div>
+      <div class="skill-group" style="animation-delay:.38s"><h3>Tools</h3><p>ServiceNow, Canva</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-experience">
+  <div class="wrap">
+    <div class="section-head"><h2>Experience &amp; Training</h2><span class="idx">03</span></div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-top"><h3>DevOps Internship</h3><time>2025</time></div>
+        <div class="tl-org">AK InfoPark</div>
+        <ul>
+          <li>Completed a one-month DevOps internship with hands-on exposure to AWS EC2, S3, and IAM.</li>
+          <li>Gained practical understanding of cloud infrastructure, storage, access management, and workflow automation.</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-top"><h3>Java &amp; Web Development Training</h3><time>2026</time></div>
+        <div class="tl-org">QSpiders</div>
+        <ul>
+          <li>Completed technical training in Java, SQL, HTML5, and CSS3 through hands-on exercises.</li>
+          <li>Strengthened programming fundamentals, database querying, and web development concepts.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-projects">
+  <div class="wrap">
+    <div class="section-head"><h2>Projects</h2><span class="idx">04</span></div>
+    <div class="project-row">
+      <div><h3>AI-Based Road Accident Detection</h3><div class="project-stack">Python · YOLO · DeepSORT · OpenCV</div></div>
+      <p>A real-time road accident detection system built with YOLO and DeepSORT for object detection and tracking. Processes live video streams with OpenCV to identify potential accident scenarios and support automated alerts. Published in IJRASET, 2026.</p>
+    </div>
+    <div class="project-row">
+      <div><h3>Face Recognition System</h3><div class="project-stack">Python · OpenCV</div></div>
+      <p>Real-time face recognition using live webcam input, with a graphical interface that displays the recognized user's name, confidence score, and timestamp.</p>
+    </div>
+    <div class="project-row">
+      <div><h3>Sales &amp; Customer Performance Analysis</h3><div class="project-stack">SQL · Excel · Power BI</div></div>
+      <p>Analyzed sales data to surface revenue trends, customer behavior, product performance, and regional patterns — using SQL (JOIN, GROUP BY, HAVING, aggregates), Excel for cleaning and pivot tables, and an interactive Power BI dashboard.</p>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-education">
+  <div class="wrap">
+    <div class="section-head"><h2>Education &amp; Certifications</h2><span class="idx">05</span></div>
+    <div class="split">
+      <div class="edu">
+        <h3>B.E. (Honors), Computer Science &amp; Engineering</h3>
+        <div class="tl-org">Arunachala College of Engineering for Women</div>
+        <div class="meta">CGPA 8.22 · 2026</div>
+        <div class="pub">"AI-Based Road Accident Detection Using Deep Learning" — published in IJRASET, 2026.</div>
+      </div>
+      <ul class="cert-list">
+        <li>Data Analytics Job Simulation — Deloitte (Forage)</li>
+        <li>Cybersecurity Job Simulation — Mastercard (Forage)</li>
+        <li>Cybersecurity Fundamentals</li>
+        <li>Cloud Computing</li>
+        <li>AI &amp; Data Science</li>
+        <li>DevOps Fundamentals</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-contact">
+  <div class="wrap">
+    <div class="section-head"><h2>Contact</h2><span class="idx">06</span></div>
+    <h2 style="font-size:26px; margin-bottom:10px;">Let's build something.</h2>
+    <p style="color:var(--slate); max-width:50ch; line-height:1.6;">Open to opportunities in cloud engineering, DevOps, and applied AI. Reach out — I reply quickly.</p>
+    <div class="contact-links">
+      <a href="mailto:lanaroselrh@gmail.com"><span class="dot"></span>lanaroselrh@gmail.com</a>
+      <a href="tel:+919489607006"><span class="dot"></span>+91 94896 07006</a>
+      <a href="https://linkedin.com/in/lana-rose-halton" target="_blank" rel="noopener"><span class="dot"></span>LinkedIn</a>
+      <a href="https://github.com/lanaroselrh-devport" target="_blank" rel="noopener"><span class="dot"></span>GitHub</a>
+    </div>
+    <div class="fine">Chennai, Tamil Nadu, India · English, Tamil</div>
+  </div>
+</div>
+
+<div class="page-nav wrap">
+  <button id="prevBtn" onclick="step(-1)"><span class="arrow">←</span><span id="prevLabel"></span></button>
+  <button id="nextBtn" onclick="step(1)"><span id="nextLabel"></span><span class="arrow">→</span></button>
+</div>
+
+<script>
+  const order = ['home','about','skills','experience','projects','education','contact'];
+  const labels = {home:'Home', about:'About', skills:'Skills', experience:'Experience', projects:'Projects', education:'Education', contact:'Contact'};
+
+  function go(id){
+    order.forEach(o => document.getElementById('page-'+o).classList.remove('is-active'));
+    document.getElementById('page-'+id).classList.add('is-active');
+    document.querySelectorAll('.navlinks a').forEach(a => a.classList.toggle('active', a.dataset.page===id));
+    window.scrollTo({top:0, behavior:'auto'});
+    history.replaceState(null,'','#'+id);
+    updateArrows(id);
+  }
+
+  function updateArrows(id){
+    const idx = order.indexOf(id);
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    prevBtn.disabled = idx <= 0;
+    nextBtn.disabled = idx >= order.length - 1;
+    document.getElementById('prevLabel').textContent = idx > 0 ? labels[order[idx-1]] : '';
+    document.getElementById('nextLabel').textContent = idx < order.length-1 ? labels[order[idx+1]] : '';
+  }
+
+  function step(dir){
+    const current = order.find(o => document.getElementById('page-'+o).classList.contains('is-active'));
+    const idx = order.indexOf(current) + dir;
+    if(idx >= 0 && idx < order.length) go(order[idx]);
+  }
+
+  const startId = order.includes(location.hash.replace('#','')) ? location.hash.replace('#','') : 'home';
+  go(startId);
+</script>
+
+</body>
+</html>
